@@ -11,6 +11,9 @@ jobs:
     steps:
       - name: print something
         run: echo "Spring-Modulith"
+      - name: show host environment variables
+        run: echo "${{env.ACTUATOR_EXPOSED_ENDPOINTS}}"
+
 
 
 #  push-image-section
