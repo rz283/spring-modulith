@@ -1,0 +1,41 @@
+services:
+  postgres:
+    container_name: postgres
+    image: 'postgres:16.2'
+    environment:
+      - 'POSTGRES_DB=mydatabase'
+      - 'POSTGRES_PASSWORD=secret'
+      - 'POSTGRES_USER=myuser'
+    ports:
+      - '5432:5432'
+    volumes:
+      - /c/tmp/postgres_modulith:/var/lib/postgresql/data
+    networks:
+      modulith-network:
+  modulith-service:
+    container_name: modulith-service
+    image: modulith:1.0
+    ports:
+      - "8080:8081"
+    environment:
+#      SPRING_PROFILES_ACTIVE: "dev"
+      SPRING_PROFILE: "docker"
+      MODULITH_USERNAME: "myuser"
+      MODULITH_PASSWORD: "secret"
+      MODULITH_HOST: "postgres"
+      MODULITH_PORT: 5432
+      MODULITH_DB_NAME: "mydatabase"
+      DELETE_EVENT_DURATION: 5000
+      ACTUATOR_EXPOSED_ENDPOINTS: "health, modulith"
+      SERVER_PORT: 8081
+    depends_on:
+      - postgres
+    networks:
+      modulith-network:
+    restart: unless-stopped
+
+volumes:
+  postgres:
+networks:
+  modulith-network:
+    driver: bridge
