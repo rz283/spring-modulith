@@ -1,0 +1,18 @@
+name: build push image for deployment
+on:
+  push:
+    branches:
+      - main
+    branches-ignore:
+      - feature
+jobs:
+  build-section:
+    environment: action
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: print something
+        run: echo "Spring-Modulith"
+
+
+#  push-image-section
