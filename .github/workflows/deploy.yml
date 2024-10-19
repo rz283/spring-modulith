@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - main
-    branches-ignore:
-      - feature
 jobs:
   build-section:
     environment: action
