@@ -12,7 +12,7 @@ jobs:
       - name: print something
         run: echo "Spring-Modulith"
       - name: show host environment variables
-        run: echo "${{env.ACTUATOR_EXPOSED_ENDPOINTS}}"
+        run: echo "Actuator endpoints $ACTUATOR_EXPOSED_ENDPOINTS"
 
 
 
