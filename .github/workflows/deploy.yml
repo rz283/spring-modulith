@@ -56,8 +56,11 @@ jobs:
       - name: Output Info
         run: ls && mvn -version && ls /opt
 
+      - name: Run maven test
+        run: mvn clean test
+
       - name: Build with maven
-        run: mvn clean package -Dspring.profiles.active=${{vars.SPRING_PROFILE}}
+        run: mvn clean package -DskipTests -Dspring.profiles.active=${{vars.SPRING_PROFILE}}
 
       - name: List files
         run: ls target/**
