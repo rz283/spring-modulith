@@ -35,7 +35,7 @@ jobs:
           cache: maven
       - name: Output Info
         run: ls
-      - name: Build with maven -Dspring.profiles.active=${vars.SPRING_PROFILE}
+      - name: Build with maven -DskipTests -Dspring.profiles.active=${vars.SPRING_PROFILE}
         run: mvn clean package
       - name: List files
         run: ls target/**
