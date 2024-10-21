@@ -69,4 +69,15 @@ jobs:
 #      - name: Build with Maven
 #        run: mvn -B package --file pom.xml
 
-#  push-image-section
+  push-image-section:
+    environment: action
+    needs: build-job-section
+    runs-on: ubuntu-latest
+    steps:
+      - name: print something
+        run: echo " job env ${{ env.job_env }}"
+
+      - name: download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: spring-modulith-artifact
