@@ -65,6 +65,16 @@ jobs:
       - name: List files
         run: ls target/**
 
+      - name: upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: spring-modulith-artifact
+          path: |
+            target/*jar
+            dockerfile
+          overwrite: 'true'
+          retention-days: 5
+
 #          cache-dependency-path: 'sub-project/pom.xml' # optional
 #      - name: Build with Maven
 #        run: mvn -B package --file pom.xml
