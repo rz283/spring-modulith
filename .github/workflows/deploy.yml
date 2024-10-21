@@ -13,8 +13,10 @@ jobs:
     steps:
       - name: print something
         run: echo "Here Modulithers!! i am printing something"
+
       - name: show host environment variable
         run: echo "some data ${{ env.SOME_ENV }}  actuator endpoint  ${{ vars.ACTUATOR_EXPOSED_ENDPOINTS }}"
+
       - name: print job
         env:
           step_level_env: stepenv
@@ -38,18 +40,28 @@ jobs:
     steps:
       - name: Get Code
         uses: actions/checkout@v4
+
       - name: Set Up JDK 21
         uses: actions/setup-java@v4
         with:
           distribution: 'corretto'
           java-version: '21'
           cache: maven
+
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: 3.8.2
+
       - name: Output Info
         run: ls && mvn -version && ls /opt
+
       - name: Build with maven
         run: mvn clean package -Dspring.profiles.active=${{vars.SPRING_PROFILE}}
+
       - name: List files
         run: ls target/**
+
 #          cache-dependency-path: 'sub-project/pom.xml' # optional
 #      - name: Build with Maven
 #        run: mvn -B package --file pom.xml
