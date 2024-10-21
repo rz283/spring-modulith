@@ -7,28 +7,32 @@ jobs:
   sample-job-section:
     environment: action
     runs-on: ubuntu-latest
+    env:
+      SOME_ENV: some_Data
 
     steps:
       - name: print something
-        run: echo "Spring-Modulith"
-      - name: show host environment variables
-        run: echo "Actuator endpoints ${{vars.ACTUATOR_EXPOSED_ENDPOINTS}}"
+        run: echo "Here Modulithers!! i am printing something"
+      - name: show host environment variable
+        run: echo "some data ${{ env.SOME_ENV }}  actuator endpoint  ${{ vars.ACTUATOR_EXPOSED_ENDPOINTS }}"
+      - name: print job
+        env:
+          step_level_env: stepenv
+        run: echo " job env ${{ env.job_env }}   step env ${{ env.step_level_env }}"
 
   build-job-section:
     environment: action
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get code
-        uses: action/checkout@v4
-        with:
-          repository: 'spring-modulith'
-      - name: Setup JDK 21
+      - name: Get Code
+        uses: actions/checkout@v4
+      - name: Set Up JDK 21
         uses: actions/setup-java@v4
         with:
           distribution: 'corretto'
           java-version: '21'
-          cache: 'maven'
+          cache: maven
 #          cache-dependency-path: 'sub-project/pom.xml' # optional
 #      - name: Build with Maven
 #        run: mvn -B package --file pom.xml
