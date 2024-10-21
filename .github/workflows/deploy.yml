@@ -35,8 +35,8 @@ jobs:
           cache: maven
       - name: Output Info
         run: ls
-      - name: Build with maven -DskipTests -Dspring.profiles.active=${vars.SPRING_PROFILE}
-        run: mvn clean package
+      - name: Build with maven
+        run: mvn clean package -DskipTests -Dspring.profiles.active=${vars.SPRING_PROFILE}
       - name: List files
         run: ls target/**
 #          cache-dependency-path: 'sub-project/pom.xml' # optional
